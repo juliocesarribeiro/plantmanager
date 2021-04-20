@@ -150,7 +150,7 @@ const styles = StyleSheet.create({
   },
 
   buttonDisabled: {
-    backgroundColor: colors.gray,
+    backgroundColor: colors.green_light,
     height: 56,
     borderRadius: 16,
     justifyContent: 'center',
