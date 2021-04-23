@@ -8,9 +8,12 @@ import {
   KeyboardAvoidingView,
   TouchableWithoutFeedback,
   Platform,
-  Keyboard
+  Keyboard,
+  Alert
 } from 'react-native'
 import { useNavigation } from '@react-navigation/core';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
 import { Button } from '../components/Button';
 
 import colors from '../styles/colors'
@@ -23,13 +26,22 @@ export function UserIdentification() {
   const [name, setName] = useState<string>();
   const navigation = useNavigation();
 
-  function handleSubmit() {
-    navigation.navigate('Confirmation');
+  async function handleSubmit() {
+    if (!name)
+      return Alert.alert('Me diz como chamar você 😢');
+
+    try {
+      await AsyncStorage.setItem("@plantmanager:user", name);
+      navigation.navigate('Confirmation');
+    } catch {
+      Alert.alert('Não foi possível salver o seu nome. 😢');
+    }
+
   }
 
   function handleInputBlur() {
     setIsFocused(false);
-    setName(!!name);
+    setIsFilled(!!name);
   }
 
   function handleInputFocus() {
@@ -70,20 +82,10 @@ export function UserIdentification() {
                   onChangeText={handleInputChange}
                 />
                 <View style={styles.footer}>
-                  {isFilled ? (
-                    <Button
-                      title="Confirmar"
-                      onPress={handleSubmit}
-                    />
-                  ) : (
-                    <Button
-                      disabled={true}
-                      title="Confirmar"
-                      onPress={handleSubmit}
-                      style={styles.buttonDisabled}
-                    />
-                  )}
-
+                  <Button
+                    title="Confirmar"
+                    onPress={handleSubmit}
+                  />
                 </View>
               </View>
             </View>
@@ -149,11 +151,4 @@ const styles = StyleSheet.create({
     width: '100%',
   },
 
-  buttonDisabled: {
-    backgroundColor: colors.green_light,
-    height: 56,
-    borderRadius: 16,
-    justifyContent: 'center',
-    alignItems: 'center',
-  }
 })
