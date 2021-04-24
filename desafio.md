@@ -3,3 +3,5 @@
 2 #embuscadoproximonivel
 
 3 #astronautas
+
+4 universoinfinito
