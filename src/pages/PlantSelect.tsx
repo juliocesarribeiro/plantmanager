@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { View, Text, StyleSheet, FlatList, ActivityIndicator } from 'react-native';
 import { useNavigation } from '@react-navigation/core';
 import EnviromentButton from '../components/EnviromentButton';
-import Header from '../components/Header';
+import { Header } from '../components/Header';
 import { PlantCardPrimary } from '../components/PlantCardPrimary';
 import { Load } from '../components/Load';
 import { PlantProps } from '../lib/storage';
@@ -11,12 +11,10 @@ import api from '../services/api';
 
 import colors from '../styles/colors';
 import fonts from '../styles/fonts';
-
 interface EnvironmentProps {
   key: string;
   title: string;
 };
-
 
 export function PlantSelect() {
   const [environments, setEnvironments] = useState<EnvironmentProps[]>([]);
@@ -72,8 +70,6 @@ export function PlantSelect() {
   function handlePlantSelect(plant: PlantProps) {
     navigation.navigate('PlantSave', { plant });
   }
-
-
 
   useEffect(() => {
     async function fetchEnvironment() {
@@ -147,8 +143,6 @@ export function PlantSelect() {
               : <></>
           }
         />
-
-
       </View>
     </View>
   )
@@ -177,6 +171,7 @@ const styles = StyleSheet.create({
     fontFamily: fonts.text,
     lineHeight: 20,
   },
+
   enviromentList: {
     height: 40,
     justifyContent: 'center',

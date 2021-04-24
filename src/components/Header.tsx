@@ -7,7 +7,7 @@ import userImg from '../assets/julio.png';
 import colors from '../styles/colors';
 import fonts from '../styles/fonts';
 
-export default function Header() {
+export function Header() {
   const [userName, setUserName] = useState<string>();
 
   useEffect(() => {
